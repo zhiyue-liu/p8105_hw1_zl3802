@@ -33,4 +33,38 @@ ggsave(
   plot = flipper_bill_plot
 )
 ```
+The plot shows the relationship between bill length and flipper length for the three penguin species.
 
+
+# Problem 2
+```{r}
+library(tidyverse)
+
+problem2_df =
+  tibble(
+    random_sample = rnorm(10),
+    logical_vector = random_sample > 0,
+    character_vector = c(
+      "a", "b", "c", "d", "e",
+      "f", "g", "h", "i", "j"
+    ),
+    factor_vector = factor(
+      c("A", "B", "C", "A", "B", "C", "A", "B", "C", "A")
+    )
+  )
+```
+
+```{r}
+mean(pull(problem2_df, random_sample))
+mean(pull(problem2_df, logical_vector))
+mean(pull(problem2_df, character_vector))
+mean(pull(problem2_df, factor_vector))
+```
+The mean works for the numeric and logical variables. For the logical variable, TRUE is treated as 1 and FALSE as 0. The mean does not work for the character or factor variables.
+
+```{r, results='hide', warning=FALSE}
+as.numeric(pull(problem2_df, logical_vector))
+as.numeric(pull(problem2_df, character_vector))
+as.numeric(pull(problem2_df, factor_vector))
+```
+The logical vector becomes 1 and 0. The character vector becomes NA because the letters cannot be converted to numbers. The factor vector becomes numeric level codes. This explains why the mean works for logical variables but not for character or factor variables.
