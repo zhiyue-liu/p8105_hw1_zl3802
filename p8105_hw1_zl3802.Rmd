@@ -5,3 +5,32 @@ date: "2026-09-23"
 output: github_document
 ---
 
+# Problem 1
+```{r}
+library(ggplot2)
+
+data("penguins", package = "palmerpenguins")
+```
+
+The `penguins` dataset has information about penguins, such as species, island, bill length, flipper length, body mass, sex, and year. The species are `r paste(levels(penguins$species), collapse = ", ")`. The islands are `r paste(levels(penguins$island), collapse = ", ")`. There are `r nrow(penguins)` rows and `r ncol(penguins)` columns. The mean flipper length is `r round(mean(penguins$flipper_length_mm, na.rm = TRUE), 2)` mm.
+
+```{r}
+flipper_bill_plot =
+  ggplot(
+    penguins,
+    aes(
+      x = bill_length_mm,
+      y = flipper_length_mm,
+      color = species
+    )
+  ) +
+  geom_point()
+
+flipper_bill_plot
+
+ggsave(
+  "flipper_bill_scatterplot.png",
+  plot = flipper_bill_plot
+)
+```
+
